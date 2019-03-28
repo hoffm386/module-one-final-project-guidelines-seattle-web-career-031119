@@ -121,6 +121,6 @@ class Review < ActiveRecord::Base
 
 end
 
-## some issues
+## some issues/ideas
 ## - you can go through the motions of creating a new review of a restaurant, but it won't actually save it. it only has the original
 ## - title for your reviews
