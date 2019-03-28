@@ -31,8 +31,10 @@ class CLI
   def self.main_menu(prompt)
     active = 1
 
+    self.display_prompt(prompt)
+
     while active == 1
-        self.display_prompt(prompt)
+
         user_response = STDIN.gets.chomp
         user_response.downcase!
         user_response.strip!
@@ -51,6 +53,7 @@ class CLI
 
               when "search"
                 active = 0
+                system "clear"
                 self.food_search
 
               when "back"
@@ -109,7 +112,7 @@ class CLI
     prompt.each do |line|
       puts "\t#{line}:" + " "*(20-line.length) + "#{prompt_hash[line]}"
     end
-    puts "\tquit: " + " "*16 + "#{prompt_hash['quit']}"
+    puts "\tquit: " + " "*15 + "#{prompt_hash['quit']}"
     puts "—" * 80
     print "> "
   end
@@ -131,6 +134,7 @@ class CLI
       when condition.keys[0] == "alpha"
         if user_response.match(/^[\w\s]+$/) != nil
           active = 0
+          system "clear"
           return user_response.strip
         else
           puts "No special characters please!"
@@ -138,6 +142,7 @@ class CLI
       when condition.keys[0] == "number"
         if condition.values[0].include?(user_response.to_i)
           active = 0
+          system "clear"
           return user_response.to_i
         else
           puts "Please enter a valid number!"
@@ -182,7 +187,7 @@ class CLI
   end
 
   def self.food_search
-    prompt = "\nEnter a neighborhood or city name\n"
+    prompt = "Enter a neighborhood or city name"
     condition = {"alpha" => "any"}
     location = self.menu_get_input(prompt, condition)
     self.choose_location(location)
@@ -233,7 +238,7 @@ class CLI
       value.each {|key, value| puts "#{key}, (#{value} avg rating)\n"}
     end
     #needs to make multiple choice: "new search", "review one of the above rests"
-    prompt = "Choose a number to review a restaurant"
+    prompt = "Choose a number to view a restaurant"
     condition = {"number" => (1..restaurants_menu_hash.length).to_a}
     restaurant_number = self.menu_get_input(prompt, condition)
 
