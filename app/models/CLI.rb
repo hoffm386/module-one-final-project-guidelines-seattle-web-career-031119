@@ -108,7 +108,7 @@ class CLI
     prompt.each do |line|
       puts "\t#{line}:" + " "*(20-line.length) + "#{prompt_hash[line]}"
     end
-    puts "\tquit: " + " "*16 + "#{prompt_hash['quit']}"
+    puts "\tquit: " + " "*15 + "#{prompt_hash['quit']}"
     puts "—" * 80
     print "> "
   end
@@ -121,6 +121,7 @@ class CLI
     active = 1
     while active == 1 do
       puts "#{prompt}"
+      print '> '
       user_response = STDIN.gets.chomp
       case
       when condition == nil
