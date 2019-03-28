@@ -63,6 +63,7 @@ class CLI
 
               when "see reviews"
                 active = 0
+                system "clear"
                 Review.read_reviews
 
               when "update review"
@@ -160,7 +161,7 @@ class CLI
   def self.start
     system "clear"
     puts "hello world!"
-    sleep(0.3)
+    sleep(0.4)
     system "clear"
     puts "Welcome to 'Eat or Quit' our Zomato based CLI!"
     sleep(4)
@@ -169,7 +170,7 @@ class CLI
   end
 
   def self.user_entry
-    prompt = "\nPlease login by entering your first name:\n"
+    prompt = "Please login by entering your first name:"
     condition = {"alpha" => "any"}
     username = self.menu_get_input(prompt, condition)
     @@user = User.find_or_create_by(name: username)
