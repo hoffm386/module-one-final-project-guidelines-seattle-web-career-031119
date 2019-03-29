@@ -234,7 +234,14 @@ class CLI
   def self.get_hotspots
     @@find_hotspots = 0
     @@restaurants_master_list = API.get_restaurants_from_location(@@location)
-    Processor.hotspots_parse(@@restaurants_master_list)
+    @@hoods_list= Processor.hoods_list(@@restaurants_master_list)
+    @@densest_hood= Processor.densest_hood(@@restaurants_master_list)
+    array = Processor.cost_by_hood(@@restaurants_master_list)
+    @@cheapest_hood= array[0]
+    @@priciest_hood= array[1]
+    @@rest_strata_hash= Processor.rest_strata_hash(@@restaurants_master_list)
+
+    
     binding.pry
   end
 
