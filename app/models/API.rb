@@ -1,7 +1,7 @@
 class API
 
   def self.key
-    "4e444090a6cc15f3ea6a678736291ab3"
+    "fa4f416ba03503ee27f10e7d3ee9109e"
   end
 
   def self.connect(query_url)
