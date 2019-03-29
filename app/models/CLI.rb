@@ -312,7 +312,7 @@ class CLI
   end
 
   def self.get_restaurants
-    @@restaurants = @@restaurants_master_list.select {|rest| rest["restaurant"]["cuisines"].include?(@@cuisine)}
+    @@restaurants = @@restaurants_master_list.select {|rest| rest["restaurant"]["cuisines"].include?(@@cuisine)}.uniq
     @@restaurants.sort_by! { |r| r["restaurant"]["user_rating"]["aggregate_rating"].to_f*-1 }
     restaurants_menu_hash = Hash.new
     @@restaurants.each.with_index(1) do |rest, index|
