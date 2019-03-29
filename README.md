@@ -6,11 +6,7 @@ Eat or Quit is a Ruby CLI that can be used to search for restaurants and review 
 
 Restaurant information is supplied by Zomato's API (https://developers.zomato.com/api), which allows the user to browse through Zomato's extensive collection of restaurant profiles (US only for this CLI).
 
-Authors
-
-Mera Stackhouse, Jon Langkammer, and Abe Dolinger
-
-Features
+FEATURES
 
 - Create or log in to a previously created username.
 
@@ -22,7 +18,11 @@ Features
 
 - Create, view, edit, and delete your own reviews.
 
-Install
+VIDEO RUN THROUGH
+
+https://vimeo.com/327377062
+
+INSTALL
 
 Clone the github repository to your local computer at https://github.com/256hz/module-one-final-project-guidelines-seattle-web-career-031119.
 
@@ -34,7 +34,7 @@ In Terminal from the project's directory:
 - Optional: Run 'rake db:seed' if you would like to add the seed data from db/seeds.rb
 - Start the program with 'ruby bin/run.rb'
 
-Credits
+CREDITS
 
 We used the Paint ruby gem by janlelis. See https://github.com/janlelis/paint.
 
@@ -53,9 +53,14 @@ And the following links:
 - https://stackoverflow.com/questions/6040494/how-to-find-the-key-of-the-largest-value-hash
 - https://stackoverflow.com/questions/34594018/how-to-code-press-key-to-continue
 
-Support
+AUTHORS
+
+Mera Stackhouse, Jon Langkammer, and Abe Dolinger
+
+SUPPORT
+
 There is currently no support.
 
-MIT License
+LICENSE
 
 https://github.com/256hz/module-one-final-project-guidelines-seattle-web-career-031119/blob/master/LICENSE.md
