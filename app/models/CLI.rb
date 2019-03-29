@@ -71,8 +71,10 @@ class CLI
   def self.main_menu(prompt)
     active = 1
 
+    self.display_prompt(prompt)
+
     while active == 1
-        self.display_prompt(prompt)
+
         user_response = STDIN.gets.chomp
         user_response.downcase!
         user_response.strip!
@@ -91,6 +93,7 @@ class CLI
 
               when "search"
                 active = 0
+                system "clear"
                 self.food_search
 
               when "find hotspots"
@@ -108,6 +111,7 @@ class CLI
 
               when "see reviews"
                 active = 0
+                system "clear"
                 Review.read_reviews
 
               when "update review"
@@ -158,7 +162,7 @@ class CLI
 
   def self.display_prompt(prompt)
     puts "—" * 80
-    puts "#{@@user.name.capitalize}, would you like to:"
+    puts Paint["#{@@user.name.capitalize}, would you like to:", :bright, :bold, :green]
     prompt.each do |line|
       puts "\t#{line}:" + " "*(20-line.length) + "#{prompt_hash[line]}"
     end
@@ -185,16 +189,18 @@ class CLI
       when condition.keys[0] == "alpha"
         if user_response.match(/^[\w\s]+$/) != nil
           active = 0
+          system "clear"
           return user_response.strip
         else
-          puts "No special characters please!"
+          puts Paint["No special characters please!", :red]
         end
       when condition.keys[0] == "number"
         if condition.values[0].include?(user_response.to_i)
           active = 0
+          system "clear"
           return user_response.to_i
         else
-          puts "Please enter a valid number!"
+          puts Paint["Please enter a valid number!", :red]
         end
       when user_response.downcase == "quit" || "exit"
         active = 0
@@ -215,16 +221,16 @@ class CLI
   def self.start
     system "clear"
     puts "hello world!"
-    sleep(0)
+    sleep(0.4)
     system "clear"
-    puts "Welcome to 'Eat or Quit' our Zomato based CLI!"
-    sleep(0)
+    puts Paint["Welcome to 'Eat or Quit' our Zomato based CLI!", :bright, :bold, :green]
+    sleep(1.5)
     system "clear"
     self.user_entry
   end
 
   def self.user_entry
-    prompt = "\nPlease login by entering your first name:\n"
+    prompt = "Please login by entering your first name:"
     condition = {"alpha" => "any"}
     username = self.menu_get_input(prompt, condition)
     @@user = User.find_or_create_by(name: username)
@@ -236,6 +242,7 @@ class CLI
   end
 
   def self.food_search
+
     if @@find_hotspots == 0
       prompt = "\nEnter a neighborhood or city name\n"
     else
@@ -316,7 +323,7 @@ class CLI
       value.each {|key, value| puts "#{key}, (#{value} avg rating)\n"}
     end
     #needs to make multiple choice: "new search", "review one of the above rests"
-    prompt = "Choose a number to review a restaurant"
+    prompt = "Choose a number to view a restaurant"
     condition = {"number" => (1..restaurants_menu_hash.length).to_a}
     restaurant_number = self.menu_get_input(prompt, condition)
 

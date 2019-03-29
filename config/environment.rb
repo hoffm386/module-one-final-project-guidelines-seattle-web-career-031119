@@ -4,6 +4,7 @@ require 'json'
 require 'rake'
 require 'sqlite3'
 require 'io/console'
+require 'paint'
 
 Bundler.require
 
