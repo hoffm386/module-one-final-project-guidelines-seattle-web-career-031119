@@ -108,7 +108,7 @@ class CLI
 
   def self.display_prompt(prompt)
     puts "—" * 80
-    puts "#{@@user.name.capitalize}, would you like to:"
+    puts Paint["#{@@user.name.capitalize}, would you like to:", :bright, :bold, :green]
     prompt.each do |line|
       puts "\t#{line}:" + " "*(20-line.length) + "#{prompt_hash[line]}"
     end
@@ -138,7 +138,7 @@ class CLI
           system "clear"
           return user_response.strip
         else
-          puts "No special characters please!"
+          puts Paint["No special characters please!", :red]
         end
       when condition.keys[0] == "number"
         if condition.values[0].include?(user_response.to_i)
@@ -146,7 +146,7 @@ class CLI
           system "clear"
           return user_response.to_i
         else
-          puts "Please enter a valid number!"
+          puts Paint["Please enter a valid number!", :red]
         end
       when user_response.downcase == "quit" || "exit"
         active = 0
@@ -169,7 +169,7 @@ class CLI
     puts "hello world!"
     sleep(0.4)
     system "clear"
-    puts "Welcome to 'Eat or Quit' our Zomato based CLI!"
+    puts Paint["Welcome to 'Eat or Quit' our Zomato based CLI!", :bright, :bold, :green]
     sleep(4)
     system "clear"
     self.user_entry

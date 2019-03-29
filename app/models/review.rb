@@ -18,7 +18,7 @@ class Review < ActiveRecord::Base
     #create a hash of all reviews with numerical keys
     @@reviews_hash.clear
     Review.all.where(user: CLI.user).each.with_index(1) {|review, index|
-      @@reviews_hash[index] = [review.restaurant.name, review.rating, review.message]
+      @@reviews_hash[index] = [review.restaurant.name, review.rating, review.message, review.id]
     }
   end
 
@@ -36,16 +36,16 @@ class Review < ActiveRecord::Base
 
   def self.find_review_from_user_input(user_input)
     # initialize a blank name
-    restaurant_name = ""
-    # iterate over pretty hash and find resto name from index number
+    review_id = nil
+    # iterate over pretty hash and find review id from index number
     @@reviews_hash.each {|key, value|
       if key == user_input
-        restaurant_name = value[0]
+        review_id = value[3]
       end
     }
-    #find review by resto name
+    #find review by review id
     CLI.user.reviews.find {|review|
-      review.restaurant.name == restaurant_name
+      review.id == review_id
     }
   end
 
@@ -58,6 +58,7 @@ class Review < ActiveRecord::Base
     restaurant = Restaurant.find_or_create_by(name: CLI.restaurant['restaurant']['name'])
     review = Review.create(user: CLI.user, restaurant: restaurant, rating: rating, message: message)
     ## show the user their new review
+    system "clear"
     puts "\nYour new review:"
     self.print_single_review(review)
     ## ask user where they want to go next
@@ -97,6 +98,7 @@ class Review < ActiveRecord::Base
     ## update those fields in the database
     review.update(rating: rating, message: message)
     ##print out new version of review
+    system "clear"
     puts "\nYour new review:"
     self.print_single_review(review)
     ## ask user where they want to go next
@@ -110,6 +112,7 @@ class Review < ActiveRecord::Base
     # get the right review from the index the user gave
     review = self.find_review_from_user_input(review_num)
     ## let the user know what they deleted
+    system "clear"
     puts "\nYou have deleted the following review."
     self.print_single_review(review)
     ## delete it
@@ -120,7 +123,3 @@ class Review < ActiveRecord::Base
   end
 
 end
-
-## some issues/ideas
-## - you can go through the motions of creating a new review of a restaurant, but it won't actually save it. it only has the original
-## - title for your reviews
