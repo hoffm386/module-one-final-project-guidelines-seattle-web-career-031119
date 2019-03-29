@@ -5,6 +5,8 @@ class CLI
   @@cuisine = nil
   @@restaurant = nil
   @@restaurants = nil
+  @@find_hotspots = 0
+  @@hotspots_data_hash = nil
   @@restaurants_master_list = nil
 
 ## Reader methods for Review class to access - added by Mera
@@ -53,6 +55,11 @@ class CLI
                 active = 0
                 self.food_search
 
+              when "find hotspots"
+                active = 0
+                @@find_hotspots = 1
+                self.food_search
+
               when "back"
                 active = 0
                 self.get_restaurants
@@ -92,6 +99,7 @@ class CLI
   def self.prompt_hash
     {
       "search" => "Start a new search",
+      "find hotspots" => "In a new city? Find the hotspots!",
       "logout" => "Log out of your account",
       "back" => "Go back to restaurants list",
       "review" => "Create a review of this restaurant",
@@ -160,10 +168,10 @@ class CLI
   def self.start
     system "clear"
     puts "hello world!"
-    sleep(0.3)
+    sleep(0)
     system "clear"
     puts "Welcome to 'Eat or Quit' our Zomato based CLI!"
-    sleep(4)
+    sleep(0)
     system "clear"
     self.user_entry
   end
@@ -175,9 +183,9 @@ class CLI
     @@user = User.find_or_create_by(name: username)
     system "clear"
     puts "You are now logged in as #{@@user.name.capitalize}"
-    sleep(2)
+    sleep(0)
     system "clear"
-    self.main_menu(["search", "see reviews", "logout"])
+    self.main_menu(["search", "find hotspots", "see reviews", "logout"])
   end
 
   def self.food_search
@@ -193,14 +201,23 @@ class CLI
     pretty_location_hash = Processor.pretty_location_menu(location_suggestions_hash, location_options_array)
     Processor.display_pretty_location_hash(pretty_location_hash)
 
-
     prompt = "\nEnter the number of the location you would like\n"
     condition = {"number" => (1..location_options_array.length).to_a }
     number = self.menu_get_input(prompt, condition)
-    #binding.pry
+
     chosen_location_index = pretty_location_hash[number].values[0]
     @@location = location_options_array[chosen_location_index]
-    self.get_cuisines
+    if @@find_hotspots == 1
+      self.get_hotspots
+    else
+      self.get_cuisines
+    end
+  end
+
+  def self.get_hotspots
+    @@find_hotspots = 0
+    @@restaurants_master_list = API.get_restaurants_from_location(@@location)
+    hotspots_data_hash = Processor.hotspots_parse(@@restaurants_master_list)
   end
 
   def self.get_cuisines

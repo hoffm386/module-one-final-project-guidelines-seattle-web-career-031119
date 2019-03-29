@@ -47,6 +47,46 @@ class Processor
       final_hash[index] = {key => cuis_hash[key]}
     end
     final_hash
+
+  end
+
+  def self.hotspots_parse(cli_rest_list)
+    binding.pry
+
+    #densest restaurant area
+    rest_count_hash = Hash.new(0)
+    hoods_list = cli_rest_list.map{|r| r["restaurant"]["location"]["locality"] }.uniq
+    hoods_list.map do |hood|
+      rest_count_hash[hood] = cli_rest_list.select{|r| r["restaurant"]["location"]["locality"] == hood}.count
+    end
+    densest_hood = rest_count_hash.max_by{ |k,v| v }
+
+    #average cost for two, average by hood
+    hood_price_hash = Hash.new(0)
+    hood_arrays = Hash.new(0)
+    hoods_list.map do |hood|
+      hood_array = cli_rest_list.select{|r| r["restaurant"]["location"]["locality"] == hood}
+      hood_arrays[hood] = hood_array
+      hood_price_hash[hood] = hood_array.reduce(0) { |sum, r| sum + r["restaurant"]["average_cost_for_two"]}/hood_array.count
+    end
+    priciest_hood = hood_price_hash.max_by{ |k, v| v }
+    cheapest_hood = hood_price_hash.min_by{ |k, v| v }
+
+    # % of restaurants by hood in high, medium, and low end
+    hood_arrays.map do |array|
+      hood_name = array.first
+      rest_strata_hash[hood_name] = {low: 0, med: 0, hi: 0}
+    end
+
+    hood_arrays.map do |hood_array|
+      hood_name = hood_array.first
+      rest_strata_hash[hood_name][:low] = hood_array[1].select { |r| r["restaurant"]["average_cost_for_two"] <= 25}.count.to_f / hood_array[1].count
+      rest_strata_hash[hood_name][:med] = hood_array[1].select { |r| (r["restaurant"]["average_cost_for_two"] >= 25) && (r["restaurant"]["average_cost_for_two"] <= 55) }.count.to_f / hood_array[1].count
+      rest_strata_hash[hood_name][:hi] = hood_array[1].select { |r| r["restaurant"]["average_cost_for_two"] >= 55}.count.to_f / hood_array[1].count
+    end
+
+
+
   end
 
 end
