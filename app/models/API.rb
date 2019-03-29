@@ -30,7 +30,7 @@ class API
     # from that city (results), and return as an array of restaurant hashes.
     # We get 20 results per page. Change "number".times to process multiple pages.
     restaurants = []
-    1.times do |page|
+    10.times do |page|
       results = self.connect("search?entity_id=#{location_hash["entity_id"]}&entity_type=#{location_hash["entity_type"]}&start=#{(page-1)*20}")
       results["restaurants"].map {|rest| restaurants << rest}
     end

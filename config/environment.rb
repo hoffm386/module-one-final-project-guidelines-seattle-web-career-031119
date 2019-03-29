@@ -3,6 +3,7 @@ require 'pry'
 require 'json'
 require 'rake'
 require 'sqlite3'
+require 'io/console'
 
 Bundler.require
 

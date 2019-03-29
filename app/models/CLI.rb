@@ -42,6 +42,27 @@ class CLI
   def self.rest_strata_hash=(hash)
     @@priciest_hood = hash
   end
+
+  def self.priciest_hood
+    @@priciest_hood
+  end
+
+  def self.cheapest_hood
+    @@priciest_hood
+  end
+
+  def self.densest_hood
+    @@priciest_hood
+  end
+
+  def self.rest_strata_hash
+    @@priciest_hood
+  end
+
+  def self.restaurants_master_list
+    @@restaurants_master_list
+  end
+
   ## ------------------------------------
   ## MENU HELPER METHODS
   ## ------------------------------------
@@ -101,6 +122,14 @@ class CLI
                 active = 0
                 exit
 
+              when "exit"
+                active = 0
+                exit
+
+              when "!!!"
+                active = 0
+                exit
+
               else
                 puts "\nI am not smart enough to understand that. Please enter a valid command.\n"
               end
@@ -146,6 +175,7 @@ class CLI
     active = 1
     while active == 1 do
       puts "#{prompt}"
+      print "> "
       user_response = STDIN.gets.chomp
       case
       when condition == nil
@@ -206,7 +236,11 @@ class CLI
   end
 
   def self.food_search
-    prompt = "\nEnter a neighborhood or city name\n"
+    if @@find_hotspots == 0
+      prompt = "\nEnter a neighborhood or city name\n"
+    else
+      prompt = "\nEnter a city\n"
+    end
     condition = {"alpha" => "any"}
     location = self.menu_get_input(prompt, condition)
     self.choose_location(location)
@@ -239,10 +273,18 @@ class CLI
     array = Processor.cost_by_hood(@@restaurants_master_list)
     @@cheapest_hood= array[0]
     @@priciest_hood= array[1]
-    @@rest_strata_hash= Processor.rest_strata_hash(@@restaurants_master_list)
 
-    
-    binding.pry
+    system "clear"
+    Processor.pretty_hoods_list(@@hoods_list, @@location)
+    puts "\nOf these neighborhoods:\n"
+    puts "\n#{@@densest_hood[0]} had the most restaurants, with #{(@@densest_hood[1] / @@restaurants_master_list.count.to_f).round(2)*100}% of the total."
+    Processor.pretty_dense_hood(@@densest_hood)
+    Processor.pretty_price_minmax(array)
+    Processor.pretty_strata_hash(Processor.rest_strata_hash(@@restaurants_master_list))
+    puts
+
+    self.main_menu(["search", "find hotspots", "see reviews", "logout"])
+
   end
 
   def self.get_cuisines
@@ -297,6 +339,6 @@ class CLI
 
   def self.pick_restaurant
     self.pretty_restaurant_data.each {|line| puts "#{line}"}
-    main_menu(["review", "back", "search", "logout"])
+    main_menu(["review", "back", "search", "find hotspots", "logout"])
   end
 end

@@ -56,6 +56,7 @@ class Processor
 
   def self.hoods_list(cli_rest_list)
     hoods_list = cli_rest_list.map{|r| r["restaurant"]["location"]["locality"] }.uniq
+    hoods_list.select {|h| !h.include?(",") }
   end
 
   def self.densest_hood(cli_rest_list)
@@ -63,7 +64,7 @@ class Processor
     rest_count_hash = Hash.new(0)
 
     self.hoods_list(cli_rest_list).map do |hood|
-      rest_count_hash[hood] = cli_rest_list.select{|r| r["restaurant"]["location"]["locality"] == hood}.count
+      rest_count_hash[hood] = cli_rest_list.select{|r| r["restaurant"]["location"]["locality"].include?(hood) }.count
     end
     rest_count_hash.max_by{ |k,v| v }
   end
@@ -74,7 +75,7 @@ class Processor
     hood_arrays = Hash.new(0)
 
     self.hoods_list(cli_rest_list).map do |hood|
-      hood_array = cli_rest_list.select{|r| r["restaurant"]["location"]["locality"] == hood}
+      hood_array = cli_rest_list.select{|r| r["restaurant"]["location"]["locality"].include?(hood)}
       hood_arrays[hood] = hood_array
       hood_price_hash[hood] = hood_array.reduce(0) { |sum, r| sum + r["restaurant"]["average_cost_for_two"]}/hood_array.count
     end
@@ -90,7 +91,7 @@ class Processor
 
     # get hoods list
     self.hoods_list(cli_rest_list).map do |hood|
-      hood_array = cli_rest_list.select{|r| r["restaurant"]["location"]["locality"] == hood}
+      hood_array = cli_rest_list.select{|r| r["restaurant"]["location"]["locality"].include?(hood)}
       hood_arrays[hood] = hood_array
     end
 
@@ -109,6 +110,48 @@ class Processor
       rest_strata_hash[hood_name][:hi] = hood_array[1].select { |r| r["restaurant"]["average_cost_for_two"] >= 55}.count.to_f / hood_array[1].count
     end
     rest_strata_hash
+  end
+
+  def self.pretty_hoods_list(list, loc)
+    puts "\n#{loc['title'].split(", ")[0]} Neighborhoods:"
+    list.map.with_index do |hood, index|
+      if index % 3 == 0
+        puts "\n"
+      end
+      name = hood[0..22]
+      print "#{name}"
+      print " "*(25-name.length)
+    end
+    puts
+  end
+
+  def self.pretty_dense_hood(hood)
+  end
+
+  def self.pretty_price_minmax(array)
+    puts "#{array[1][0]} has the priciest average meal, at $#{array[1][1]}."
+    puts "#{array[0][0]} has the cheapest average meal, at $#{array[0][1]}.\n"
+  end
+
+  def self.pretty_strata_hash(hash)
+    puts "\nThe price distribution for an average meal for two in each neighborhood:"
+    nhood = "Neighborhood"
+    under = "Under $25:"
+    middle = "$25-$55:"
+    over = "Over $55:"
+    puts "\n" + nhood + " "*(27-nhood.length) + under + " "*(15-under.length) + middle + " "*(12-middle.length) + over + "\n\n"
+    hash.map.with_index do |hood, index|
+      if index > 0 && index % 10 == 0
+        puts "\npress a key to continue\n\n"
+        STDIN.getch
+      end
+      name = hood[0][0..29]
+      lo = "#{(hood[1].values[0].round(2)*100).to_i}%"
+      med = "#{(hood[1].values[1].round(2)*100).to_i}%"
+      hi = "#{(hood[1].values[2].round(2)*100).to_i}%"
+      puts name + " "*(32-name.length) + lo + " "*(12-lo.length) + med + " "*(12-med.length) + hi
+      # puts "#{hood[0]}" + " "*(18-hood[0].length) + "#{(hood[1].values[0].round(2)*100).to_i}%" + " "*15 + "#{(hood[1].values[1].round(2)*100).to_i}%" + " "*15 + "#{(hood[1].values[2].round(2)*100).to_i}%"
+    end
   end
 
 end
