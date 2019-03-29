@@ -62,7 +62,7 @@ class Review < ActiveRecord::Base
     puts "\nYour new review:"
     self.print_single_review(review)
     ## ask user where they want to go next
-    prompt = ["search", "see reviews", "logout"]
+    prompt = ["see reviews", "search", "find hotspots", "logout"]
     CLI.main_menu(prompt)
   end
 
@@ -70,7 +70,7 @@ class Review < ActiveRecord::Base
     ## if no reviews exist then go back to menu
     if Review.all.where(user: CLI.user).empty?
       puts "\nYou have no reviews! Go start a search to find a restaurant to review!"
-      prompt = ["search", "logout"]
+      prompt = ["search", "find_hotspots", "logout"]
       CLI.main_menu(prompt)
     else
       ## make sure reviews_hash is up to date
@@ -82,7 +82,7 @@ class Review < ActiveRecord::Base
         puts "#{key}: #{value[0]} \n\t Rating: #{value[1]} \n\t Review: #{value[2]}\n"
       }
       ## ask user where they want to go next
-      prompt = ["search", "update review", "delete review", "logout"]
+      prompt = ["update review", "delete review", "search", "find hotspots", "logout"]
       CLI.main_menu(prompt)
     end
   end
@@ -102,7 +102,7 @@ class Review < ActiveRecord::Base
     puts "\nYour new review:"
     self.print_single_review(review)
     ## ask user where they want to go next
-    prompt = ["search", "see reviews", "logout"]
+    prompt = ["see reviews", "search", "find hotspots", "logout"]
     CLI.main_menu(prompt)
   end
 
@@ -118,7 +118,7 @@ class Review < ActiveRecord::Base
     ## delete it
     review.delete
     ## ask user where they want to go next
-    prompt = ["search", "see reviews", "logout"]
+    prompt = ["see reviews", "search", "find hotspots", "logout"]
     CLI.main_menu(prompt)
   end
 
