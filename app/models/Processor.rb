@@ -51,7 +51,7 @@ class Processor
   end
 
   def self.hotspots_parse(cli_rest_list)
-    binding.pry
+    #binding.pry
 
     #densest restaurant area
     rest_count_hash = Hash.new(0)
@@ -73,6 +73,7 @@ class Processor
     cheapest_hood = hood_price_hash.min_by{ |k, v| v }
 
     # % of restaurants by hood in high, medium, and low end
+    rest_strata_hash = Hash.new(0)
     hood_arrays.map do |array|
       hood_name = array.first
       rest_strata_hash[hood_name] = {low: 0, med: 0, hi: 0}
@@ -85,7 +86,10 @@ class Processor
       rest_strata_hash[hood_name][:hi] = hood_array[1].select { |r| r["restaurant"]["average_cost_for_two"] >= 55}.count.to_f / hood_array[1].count
     end
 
-
+    CLI.priciest_hood=(hash)
+    CLI.cheapest_hood=(hash)
+    CLI.densest_hood=(hash)
+    CLI.rest_strata_hash=(hash)
 
   end
 

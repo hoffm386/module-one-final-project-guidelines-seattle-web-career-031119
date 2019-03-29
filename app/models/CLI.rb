@@ -6,7 +6,10 @@ class CLI
   @@restaurant = nil
   @@restaurants = nil
   @@find_hotspots = 0
-  @@hotspots_data_hash = nil
+  @@cheapest_hood = nil
+  @@priciest_hood = nil
+  @@densest_hood = nil
+  @@rest_strata_hash = nil
   @@restaurants_master_list = nil
 
 ## Reader methods for Review class to access - added by Mera
@@ -24,7 +27,21 @@ class CLI
     @@restaurant
   end
 
+  def self.priciest_hood=(hash)
+    @@priciest_hood = hash
+  end
 
+  def self.cheapest_hood=(hash)
+    @@priciest_hood = hash
+  end
+
+  def self.densest_hood=(hash)
+    @@priciest_hood = hash
+  end
+
+  def self.rest_strata_hash=(hash)
+    @@priciest_hood = hash
+  end
   ## ------------------------------------
   ## MENU HELPER METHODS
   ## ------------------------------------
@@ -116,7 +133,7 @@ class CLI
     prompt.each do |line|
       puts "\t#{line}:" + " "*(20-line.length) + "#{prompt_hash[line]}"
     end
-    puts "\tquit: " + " "*16 + "#{prompt_hash['quit']}"
+    puts "\tquit: " + " "*15 + "#{prompt_hash['quit']}"
     puts "—" * 80
     print "> "
   end
@@ -217,7 +234,8 @@ class CLI
   def self.get_hotspots
     @@find_hotspots = 0
     @@restaurants_master_list = API.get_restaurants_from_location(@@location)
-    hotspots_data_hash = Processor.hotspots_parse(@@restaurants_master_list)
+    Processor.hotspots_parse(@@restaurants_master_list)
+    binding.pry
   end
 
   def self.get_cuisines
