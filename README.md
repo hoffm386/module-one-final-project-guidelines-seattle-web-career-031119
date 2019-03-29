@@ -46,14 +46,21 @@ Niky and Cody, who fixed Mera's merge problems.
 And the following links:
 
 https://stackoverflow.com/questions/30832447/passing-in-api-key-and-parameters-with-restclient
+
 http://www.informit.com/articles/article.aspx?p=1244471&seqNum=9
+
 http://blog.jayfields.com/2008/03/ruby-inject.html
+
 https://rubular.com/
 
 https://www.rubyguides.com/2015/06/ruby-regex/
+
 https://stackoverflow.com/questions/36350321/errnoenoent-no-such-file-or-directory-rb-sysopen
+
 https://stackoverflow.com/questions/6040494/how-to-find-the-key-of-the-largest-value-hash
+
 https://stackoverflow.com/questions/34594018/how-to-code-press-key-to-continue
+
 
 Support
 There is currently no support.
