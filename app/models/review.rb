@@ -70,7 +70,7 @@ class Review < ActiveRecord::Base
     ## if no reviews exist then go back to menu
     if Review.all.where(user: CLI.user).empty?
       puts "\nYou have no reviews! Go start a search to find a restaurant to review!"
-      prompt = ["search", "find_hotspots", "logout"]
+      prompt = ["search", "find hotspots", "logout"]
       CLI.main_menu(prompt)
     else
       ## make sure reviews_hash is up to date
