@@ -1,13 +1,10 @@
 
-Make sure to create a good README.md with a short description, install instructions, a contributors guide and a link to the license for your code.
-
---------------------------------------------------------------------------------
 
 EAT OR QUIT
 
 Eat or Quit is a Ruby CLI that can be used to search for restaurants and review them.
 
-Restaurant information is supplied by Zomato's API (API URL HERE), which allows the user to browse through Zomato's extensive (US only) collection of restaurant profiles.
+Restaurant information is supplied by Zomato's API (https://developers.zomato.com/api), which allows the user to browse through Zomato's extensive collection of restaurant profiles (US only for this CLI).
 
 Authors
 
@@ -25,15 +22,17 @@ Features
 
 - Create, view, edit, and delete your own reviews.
 
-Install 
+Install
 
 Clone the github repository to your local computer at https://github.com/256hz/module-one-final-project-guidelines-seattle-web-career-031119.
 
-Got to API URL to get an API key free of charge and no credit card required. Place your API in a file on your computer that will not be shared on github. Learn from our mistakes.
+Go to https://developers.zomato.com/api to get an API key free of charge and no credit card required. Place your API in a file on your computer that will not be shared on github. Learn from our mistakes.
 
 In Terminal from the project's directory:
-Run 'bundle install'
-Start the program with 'ruby bin/run.rb'
+- Run 'bundle install'
+- Run 'rake db:migrate' to create your local database
+- Optional: Run 'rake db:seed' if you would like to add the seed data from db/seeds.rb
+- Start the program with 'ruby bin/run.rb'
 
 Credits
 
@@ -59,10 +58,4 @@ There is currently no support.
 
 MIT License
 
-Copyright (c) 2019 Mera Stackhouse, Jon Langkammer, and Abe Dolinger
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+https://github.com/256hz/module-one-final-project-guidelines-seattle-web-career-031119/blob/master/LICENSE.md
