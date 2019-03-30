@@ -42,6 +42,8 @@ Our TCF, Chris, and lead instructor, Soundarya, who answered our questions.
 
 Niky and Cody, who fixed Mera's merge problems.
 
+Erin inspired the restaurant price breakdown search in Hotspots.
+
 And the following links:
 
 - https://stackoverflow.com/questions/30832447/passing-in-api-key-and-parameters-with-restclient
