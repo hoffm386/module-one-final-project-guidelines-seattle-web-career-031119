@@ -38,7 +38,7 @@ In Terminal from the project's directory:
 - Optional: Run `rake db:seed` if you would like to add the seed data from db/seeds.rb
 - Start the program with 'ruby bin/run.rb'
 
-CREDITS
+## CREDITS
 
 We used the Paint ruby gem by janlelis. See https://github.com/janlelis/paint.
 
@@ -59,14 +59,14 @@ And the following links:
 - https://stackoverflow.com/questions/6040494/how-to-find-the-key-of-the-largest-value-hash
 - https://stackoverflow.com/questions/34594018/how-to-code-press-key-to-continue
 
-AUTHORS
+## AUTHORS
 
 Mera Stackhouse, Jon Langkammer, and Abe Dolinger
 
-SUPPORT
+## SUPPORT
 
 There is currently no support.
 
-LICENSE
+## LICENSE
 
 https://github.com/256hz/module-one-final-project-guidelines-seattle-web-career-031119/blob/master/LICENSE.md
