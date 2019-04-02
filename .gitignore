@@ -13,3 +13,4 @@ Gemfile.lock
 *.lock
 
 db/*.db
+config/secrets.yml

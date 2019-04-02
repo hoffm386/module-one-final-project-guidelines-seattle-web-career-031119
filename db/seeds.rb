@@ -1,5 +1,5 @@
 
-sarah = User.create(name: "mera")
+mera = User.create(name: "mera")
 ted = User.create(name: "ted")
 lydia = User.create(name: "lydia")
 

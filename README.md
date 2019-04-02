@@ -1,12 +1,12 @@
 
 
-EAT OR QUIT
+# EAT OR QUIT
 
 Eat or Quit is a Ruby CLI that can be used to search for restaurants and review them.
 
 Restaurant information is supplied by Zomato's API (https://developers.zomato.com/api), which allows the user to browse through Zomato's extensive collection of restaurant profiles (US only for this CLI).
 
-FEATURES
+## FEATURES
 
 - Create or log in to a previously created username.
 
@@ -18,20 +18,24 @@ FEATURES
 
 - Create, view, edit, and delete your own reviews.
 
-VIDEO RUN THROUGH
+## VIDEO RUN THROUGH
 
 https://vimeo.com/327377062
 
-INSTALL
+## INSTALL
 
-Clone the github repository to your local computer at https://github.com/256hz/module-one-final-project-guidelines-seattle-web-career-031119.
+Clone the github repository to your local computer from https://github.com/256hz/module-one-final-project-guidelines-seattle-web-career-031119.
 
-Go to https://developers.zomato.com/api to get an API key free of charge and no credit card required. Place your API in a file on your computer that will not be shared on github. Learn from our mistakes.
+To get Zomato API access:
+- Go to https://developers.zomato.com/api to get an API key free of charge and no credit card required.
+- Create a new file called `secrets.yml` inside the `config` folder
+- Inside `secrets.yml`, write `api_key: "xxxxxxxxxx"` where xxxxxxxxxx is replaced with your API key from Zomato
+- Make sure `config/secrets.yml` is in your `.gitignore` so that it will not be shared on github. Learn from our mistakes.
 
 In Terminal from the project's directory:
-- Run 'bundle install'
-- Run 'rake db:migrate' to create your local database
-- Optional: Run 'rake db:seed' if you would like to add the seed data from db/seeds.rb
+- Run `bundle install`
+- Run `rake db:migrate` to create your local database
+- Optional: Run `rake db:seed` if you would like to add the seed data from db/seeds.rb
 - Start the program with 'ruby bin/run.rb'
 
 CREDITS
